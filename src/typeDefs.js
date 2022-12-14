@@ -3,8 +3,14 @@ import { gql } from "apollo-server-express";
 const usersAttribs = `
     id: ID
     nome: String!
-    idade: Number!
+    idade: String!
     playlists: [Playlist]
+`
+const usersAttribsInp = `
+    id: ID
+    nome: String!
+    idade: String!
+    playlists: input: [Playlist]
 `
 const musicAttribs = `
     id: ID
@@ -54,17 +60,24 @@ export const typeDefs = gql`
   type Playlist{
     ${playlistAttribs}
   }
+  input UserInput {
+    ${usersAttribsInp}
+  }
+  input MusicInput {
+    ${musicAttribs}
+  }
+  input PlaylistInput {
+    ${playlistAttribs}
+  }
   type Mutation {
-    createUser(nome: String!, idade: Number!, playlists: [Playlist]): User!
-    updateUser(id: ID!, nome: String!, idade: Number!, playlists: [Playlist]): User!
-    deleteUser(id: ID!): User!
-
-    createMusic(nome: String!, artista: String!): Music!
-    updateMusic(id: ID!, nome: String!, artista: String!): Music!
-    deleteMusic(id: ID!): Music!
-
-    createPlaylist(nome: String!, musicas: [Music!]): Playlist!
-    updatePlaylist(id: ID!, nome: String!, musicas: [Music!]): Playlist!
-    deletePlaylist(id: ID!): Playlist!
+    createUser(input: UserInput): User!
+    updateUser(input: UserInput): User!
+    deleteUser(input: UserInput): User!
+    createMusic(input: MusicInput): Music!
+    updateMusic(input: MusicInput): Music!
+    deleteMusic(input: MusicInput): Music!
+    createPlaylist(input: PlaylistInput): Playlist!
+    updatePlaylist(input: PlaylistInput): Playlist!
+    deletePlaylist(input: PlaylistInput): Playlist!
   }
 `;

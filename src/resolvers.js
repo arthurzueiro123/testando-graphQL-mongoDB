@@ -33,12 +33,6 @@ export const resolvers = {
     getPlaylists: () => Playlist.find()
   },
   Mutation: {
-    createCat: async (_, { name }) => {
-      const kitty = new Cat({ name });
-      await kitty.save();
-      return kitty;
-    },
-
     createUser: async (_, { nome, idade, playlist }) => {
       const usuario = new User({ nome, idade, playlist });
       await usuario.save();
